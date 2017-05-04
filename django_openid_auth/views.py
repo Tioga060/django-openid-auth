@@ -290,7 +290,7 @@ def login_complete(request,callback, redirect_field_name=REDIRECT_FIELD_NAME,
 
     if openid_response.status == SUCCESS:
         user_info = openid_response.identity_url
-        callback(user_info)
+        callback(request, user_info)
         return "true"
 
     elif openid_response.status == FAILURE:
