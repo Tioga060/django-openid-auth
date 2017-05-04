@@ -288,7 +288,11 @@ def login_complete(request, redirect_field_name=REDIRECT_FIELD_NAME,
             request, 'This is an OpenID relying party endpoint.')
 
     if openid_response.status == SUCCESS:
+        print "="*24
+        print openid_response
+        print "="*24
         print str(request)
+        print "="*24
     elif openid_response.status == FAILURE:
         return render_failure(
             request, 'OpenID authentication failed: %s' %
