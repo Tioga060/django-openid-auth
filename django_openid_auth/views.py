@@ -33,6 +33,7 @@ import re
 import urllib
 from urlparse import urlsplit
 
+from django.apps import apps as django_apps
 from django.conf import settings
 from django.contrib.auth import (
     REDIRECT_FIELD_NAME, authenticate, login as auth_login)
@@ -292,8 +293,8 @@ def login_complete(request, redirect_field_name=REDIRECT_FIELD_NAME,
         dashpos = user_info.index("-")
         playerid = user_info[dashpos-10:dashpos]
         username = user_info[dashpos+1:-1]
-        print playerid
-        print username
+        player = django_apps.get_model(settings.USER_MODEL, require_ready=False)
+        print player
     elif openid_response.status == FAILURE:
         return render_failure(
             request, 'OpenID authentication failed: %s' %
