@@ -288,27 +288,7 @@ def login_complete(request, redirect_field_name=REDIRECT_FIELD_NAME,
             request, 'This is an OpenID relying party endpoint.')
 
     if openid_response.status == SUCCESS:
-        try:
-            user = authenticate(openid_response=openid_response)
-        except DjangoOpenIDException, e:
-            return render_failure(request, e.message, exception=e)
-
-        if user is not None:
-            if user.is_active:
-                auth_login(request, user)
-                response = HttpResponseRedirect(
-                    sanitise_redirect_url(redirect_to))
-
-                # Notify any listeners that we successfully logged in.
-                openid_login_complete.send(
-                    sender=UserOpenID, request=request,
-                    openid_response=openid_response)
-
-                return response
-            else:
-                return render_failure(request, 'Disabled account')
-        else:
-            return render_failure(request, 'Unknown user')
+        print str(request)
     elif openid_response.status == FAILURE:
         return render_failure(
             request, 'OpenID authentication failed: %s' %
