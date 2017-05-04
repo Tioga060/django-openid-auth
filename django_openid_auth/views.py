@@ -290,7 +290,7 @@ def login_complete(request, redirect_field_name=REDIRECT_FIELD_NAME,
     if openid_response.status == SUCCESS:
 
         print "="*24
-        print openid_response.id
+        print openid_response.identity_url
         print "="*24
         print str(request)
         print "="*24
