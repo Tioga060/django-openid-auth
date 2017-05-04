@@ -276,7 +276,7 @@ def login_begin(request, template_name='openid/login.html',
 
 
 @csrf_exempt
-def login_complete(request, redirect_field_name=REDIRECT_FIELD_NAME,
+def login_complete(request,callback, redirect_field_name=REDIRECT_FIELD_NAME,
                    render_failure=None):
     redirect_to = request.REQUEST.get(redirect_field_name, '')
     render_failure = (
@@ -290,13 +290,9 @@ def login_complete(request, redirect_field_name=REDIRECT_FIELD_NAME,
 
     if openid_response.status == SUCCESS:
         user_info = openid_response.identity_url
-        dashpos = user_info.index("-")
-        playerid = user_info[dashpos-10:dashpos]
-        username = user_info[dashpos+1:-1]
-        player = get_model(settings.USER_MODEL_APP, settings.USER_MODEL)
-        print "="*25
-        print player
-        print "="*25
+        callback(user_info)
+        return render_failure(request, 'not a failure, it passed')
+        
     elif openid_response.status == FAILURE:
         return render_failure(
             request, 'OpenID authentication failed: %s' %
