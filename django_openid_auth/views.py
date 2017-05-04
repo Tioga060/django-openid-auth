@@ -294,7 +294,9 @@ def login_complete(request, redirect_field_name=REDIRECT_FIELD_NAME,
         playerid = user_info[dashpos-10:dashpos]
         username = user_info[dashpos+1:-1]
         player = get_model(settings.USER_MODEL_APP, settings.USER_MODEL)
+        print "="*25
         print player
+        print "="*25
     elif openid_response.status == FAILURE:
         return render_failure(
             request, 'OpenID authentication failed: %s' %
