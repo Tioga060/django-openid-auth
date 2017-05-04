@@ -291,7 +291,7 @@ def login_complete(request, redirect_field_name=REDIRECT_FIELD_NAME,
         user_info = openid_response.identity_url
         dashpos = user_info.index("-")
         playerid = user_info[dashpos-10:dashpos]
-        username = dashpos[dashpos+1:-1]
+        username = user_info[dashpos+1:-1]
         print playerid
         print username
     elif openid_response.status == FAILURE:
